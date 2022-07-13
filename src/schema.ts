@@ -8,6 +8,7 @@ export const typeDefs = gql`
   type Mutation {
     postCreate(post: PostsInput!): PostPayload!
     postUpdate(postId: ID!, post: PostsInput!): PostPayload!
+    postDelete(postId: ID!): PostPayload!
   }
 
   type Post {
