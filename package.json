@@ -12,8 +12,10 @@
     "license": "ISC",
     "dependencies": {
         "@prisma/client": "^4.0.0",
+        "@types/bcryptjs": "^2.4.2",
         "@types/validator": "^13.7.4",
         "apollo-server": "^3.9.0",
+        "bcryptjs": "^2.4.3",
         "graphql": "^16.5.0",
         "prisma": "^4.0.0",
         "validator": "^13.7.0"
