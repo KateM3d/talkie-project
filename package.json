@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start:dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
+        "start:dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
+        "start:prisma": "npx prisma studio"
     },
     "keywords": [],
     "author": "",
@@ -13,10 +14,12 @@
     "dependencies": {
         "@prisma/client": "^4.0.0",
         "@types/bcryptjs": "^2.4.2",
+        "@types/jsonwebtoken": "^8.5.8",
         "@types/validator": "^13.7.4",
         "apollo-server": "^3.9.0",
         "bcryptjs": "^2.4.3",
         "graphql": "^16.5.0",
+        "jsonwebtoken": "^8.5.1",
         "prisma": "^4.0.0",
         "validator": "^13.7.0"
     },
