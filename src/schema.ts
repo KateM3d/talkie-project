@@ -10,11 +10,11 @@ export const typeDefs = gql`
     postUpdate(postId: ID!, post: PostsInput!): PostPayload!
     postDelete(postId: ID!): PostPayload!
     signup(
-      email: String!
       name: String!
-      password: String!
+      credentials: CredentialsInput
       bio: String!
     ): AuthPayload!
+    signin(credentials: CredentialsInput): AuthPayload!
   }
 
   type Post {
@@ -57,5 +57,10 @@ export const typeDefs = gql`
   input PostsInput {
     title: String
     content: String
+  }
+
+  input CredentialsInput {
+    email: String!
+    password: String!
   }
 `;
