@@ -4,13 +4,6 @@ import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
 import { JSON_SIGNATURE } from "../../keys";
 
-interface SigninArgs {
-  credentials: {
-    email: string;
-    password: string;
-  };
-}
-
 interface SignupArgs {
   credentials: {
     email: string;
@@ -19,6 +12,14 @@ interface SignupArgs {
   name: string;
   bio: string;
 }
+
+interface SigninArgs {
+  credentials: {
+    email: string;
+    password: string;
+  };
+}
+
 interface UserPayload {
   userErrors: {
     message: string;
@@ -29,18 +30,33 @@ interface UserPayload {
 export const authResolvers = {
   signup: async (
     _: any,
-    { name, credentials, bio }: SignupArgs,
+    { credentials, name, bio }: SignupArgs,
     { prisma }: Context
   ): Promise<UserPayload> => {
     const { email, password } = credentials;
-    const isEmail = validator.isEmail(email);
-    const isValidPassword = validator.isLength(password, { min: 5 });
 
-    if (!isEmail || !isValidPassword) {
+    const isEmail = validator.isEmail(email);
+
+    if (!isEmail) {
       return {
         userErrors: [
           {
-            message: "Invalid email or password",
+            message: "Invalid email",
+          },
+        ],
+        token: null,
+      };
+    }
+
+    const isValidPassword = validator.isLength(password, {
+      min: 5,
+    });
+
+    if (!isValidPassword) {
+      return {
+        userErrors: [
+          {
+            message: "Invalid password",
           },
         ],
         token: null,
@@ -75,22 +91,19 @@ export const authResolvers = {
       },
     });
 
-    const token = await JWT.sign(
-      {
-        userId: user.id,
-      },
-      JSON_SIGNATURE,
-      {
-        expiresIn: 3600000,
-      }
-    );
-
     return {
       userErrors: [],
-      token,
+      token: JWT.sign(
+        {
+          userId: user.id,
+        },
+        JSON_SIGNATURE,
+        {
+          expiresIn: 3600000,
+        }
+      ),
     };
   },
-
   signin: async (
     _: any,
     { credentials }: SigninArgs,
