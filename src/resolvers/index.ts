@@ -1,3 +1,5 @@
 export * from "./Query";
 export * from "./Mutations.ts/Mutation";
-export * from "./Mutations.ts/Profile";
+export * from "./Profile";
+export * from "./Post";
+export * from "./User";
