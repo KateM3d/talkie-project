@@ -1,6 +1,6 @@
 import { User } from ".prisma/client";
-import Dataloader from "dataloader";
-import { prisma } from "..";
+import DataLoader from "dataloader";
+import { prisma } from "../index";
 
 type BatchUser = (ids: number[]) => Promise<User[]>;
 
@@ -16,7 +16,7 @@ const batchUsers: BatchUser = async (ids) => {
 
   const userMap: { [key: string]: User } = {};
 
-  users.forEach((user: any) => {
+  users.forEach((user) => {
     userMap[user.id] = user;
   });
 
